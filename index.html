@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-thon 2025 | Adaptive Learning Platform</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            transition: 0.3s;
+            background: #0f172a;
+            color: #f8fafc;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        @media(max-width:900px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: #1e293b;
+            padding: 1rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid #334155;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            color: #38bdf8;
+            font-size: 1.8rem;
+        }
+
+        header p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            padding: 0.4rem 0.8rem;
+            background: #334155;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s;
+        }
+
+        section:hover {
+            transform: translateY(-3px);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .section-body {
+            margin-top: 0.5rem;
+        }
+
+        /* ===== FILE UPLOAD ===== */
+        .drop-zone {
+            border: 2px dashed #38bdf8;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #0f172a;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .file-info {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #334155;
+            padding: 0.4rem;
+            border-radius: 5px;
+            margin-top: 0.3rem;
+        }
+
+        .file-item button {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* ===== BUTTONS ===== */
+        button {
+            background: #38bdf8;
+            border: none;
+            color: #0f172a;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0ea5e9;
+        }
+
+        /* ===== QUIZ ===== */
+        .quiz-question {
+            background: #334155;
+            border-left: 4px solid #38bdf8;
+            padding: 0.6rem;
+            margin-bottom: 0.6rem;
+            border-radius: 5px;
+        }
+
+        .quiz-option {
+            display: block;
+            margin-top: 0.3rem;
+            cursor: pointer;
+            padding: 0.3rem 0.5rem;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+
+        .quiz-option:hover {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        .quiz-timer {
+            height: 8px;
+            width: 100%;
+            background: #334155;
+            border-radius: 4px;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .quiz-timer-fill {
+            height: 100%;
+            background: #38bdf8;
+            width: 0%;
+            transition: width 0.2s;
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-bar {
+            background: #334155;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+            height: 16px;
+        }
+
+        .progress-bar-fill {
+            background: #38bdf8;
+            width: 0%;
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+
+        /* ===== RECOMMENDATIONS ===== */
+        .recommendations li {
+            background: #334155;
+            margin-bottom: 0.5rem;
+            padding: 0.6rem;
+            border-radius: 6px;
+            list-style: none;
+        }
+
+        /* ===== CANVAS ===== */
+        canvas {
+            width: 100%;
+            height: 220px;
+            background: #1e293b;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        /* ===== COLLAPSIBLE ICON ===== */
+        .section-header span {
+            font-weight: bold;
+            color: #38bdf8;
+            cursor: pointer;
+        }
+
+        /* ===== THEME TOGGLE ===== */
+        #themeToggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #38bdf8;
+            color: #0f172a;
+            transition: 0.3s;
+        }
+
+        #themeToggle:hover {
+            background: #0ea5e9;
+            color: #0f172a;
+        }
+
+        body.light {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        body.light section {
+            background: #e2e8f0;
+            border-color: #94a3b8;
+        }
+
+        body.light .drop-zone {
+            background: #f8fafc;
+            border-color: #38bdf8;
+            color: #0f172a;
+        }
+
+        body.light .quiz-question {
+            background: #cbd5e1;
+            color: #0f172a;
+            border-left-color: #38bdf8;
+        }
+
+        body.light .quiz-option:hover {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        body.light canvas {
+            background: #cbd5e1;
+        }
+
+        body.light .recommendations li {
+            background: #cbd5e1;
+            color: #0f172a;
+        }
+
+        body.light header {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        body.light nav a {
+            background: #94a3b8;
+            color: #0f172a;
+        }
+
+        body.light nav a:hover {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        /* THEME TOGGLE - changed to green */
+        /* THEME TOGGLE - green with icon */
+        #themeToggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #22c55e;
+            /* Green */
+            color: #f8fafc;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        #themeToggle:hover {
+            background: #16a34a;
+            /* Darker green on hover */
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <header>
+        <h1>AI-thon 2025 – Adaptive Learning Platform</h1>
+        <p>Document processing · Auto assessments · Progress analytics · AI-driven recommendations</p>
+        <nav>
+            <a href="#documents">Documents</a>
+            <a href="#quiz">Quiz</a>
+            <a href="#analytics">Analytics</a>
+            <a href="#recommend">Recommendations</a>
+            <button id="themeToggle">CHANGE THEME</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="documents">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>📄 Document Processing</h2><span>▼</span>
+            </div>
+            <div class="section-body">
+                <div class="drop-zone" id="drop-zone">Drag & drop files here or click<input type="file" id="fileInput"
+                        multiple hidden></div>
+                <div id="fileList" class="file-info"></div>
+                <button onclick="processFiles()">Process Documents</button>
+            </div>
+        </section>
+
+        <section id="quiz">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>📝 Automated Quiz</h2><span>▼</span>
+            </div>
+            <div class="section-body">
+                <div id="quizArea"></div>
+            </div>
+        </section>
+
+        <section id="analytics">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>📊 Progress Analytics</h2><span>▼</span>
+            </div>
+            <div class="section-body">
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="progressFill"></div>
+                </div>
+                <canvas id="lineChart"></canvas>
+                <canvas id="barChart"></canvas>
+                <canvas id="pieChart"></canvas>
+                <button onclick="simulateProgress()">Simulate Progress</button>
+            </div>
+        </section>
+
+        <section id="recommend">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>🤖 AI Recommendations</h2><span>▼</span>
+            </div>
+            <div class="section-body">
+                <ul id="recommendations">
+                    <li>Upload documents to get AI recommendations.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // COLLAPSIBLE
+        function toggleSection(header) { const body = header.nextElementSibling; body.style.display = body.style.display === 'none' ? 'block' : 'none'; }
+        document.querySelectorAll('.section-body').forEach(s => s.style.display = 'block');
+
+        // THEME TOGGLE
+        document.getElementById('themeToggle').onclick = () => document.body.classList.toggle('light');
+
+        // FILE UPLOAD
+        const dropZone = document.getElementById("drop-zone"), fileInput = document.getElementById("fileInput"), fileList = document.getElementById("fileList");
+        let uploadedFiles = [];
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', () => displayFiles(fileInput.files));
+        function displayFiles(files) { uploadedFiles = uploadedFiles.concat(Array.from(files)); renderFileList(); }
+        function renderFileList() { fileList.innerHTML = ''; if (!uploadedFiles.length) { fileList.innerHTML = '<p>No files uploaded.</p>'; return; } uploadedFiles.forEach((f, i) => { const div = document.createElement('div'); div.className = 'file-item'; let pages = Math.floor(Math.random() * 20) + 1; let time = pages * 2; div.innerHTML = `<span>${f.name} (Pages:${pages}, Est. ${time}min)</span> <button onclick="removeFile(${i})">Remove</button>`; fileList.appendChild(div); }); }
+        function removeFile(index) { uploadedFiles.splice(index, 1); renderFileList(); }
+        function processFiles() { if (!uploadedFiles.length) { alert("Upload files first."); return; } alert("Processing Complete: " + uploadedFiles.length + " files."); simulateProgress(); }
+
+        // QUIZ
+        const quizArea = document.getElementById("quizArea");
+        const quizData = [{ q: "What is adaptive learning?", options: ["Personalized learning", "Random learning", "Static syllabus"], answer: 0 }, { q: "Benefit of AI in education?", options: ["Automation", "Confusion", "Extra cost"], answer: 0 }, { q: "How can analytics improve learning?", options: ["Track progress", "Ignore data", "Manual only"], answer: 0 }];
+        let currentQ = -1; let quizTimer; let timerFill;
+
+        function startQuiz() { currentQ = -1; quizArea.innerHTML = ''; nextQuestion(); }
+        function nextQuestion() { currentQ++; if (currentQ >= quizData.length) { alert("Quiz Finished!"); return; } displayQuestion(quizData[currentQ]); startTimer(); }
+        function displayQuestion(q) { quizArea.innerHTML = ''; const div = document.createElement('div'); div.className = 'quiz-question'; div.innerHTML = `<strong>${q.q}</strong>`; q.options.forEach((opt, j) => { const btn = document.createElement('div'); btn.className = 'quiz-option'; btn.textContent = opt; btn.onclick = () => { stopTimer(); btn.style.background = (j === q.answer ? '#22c55e' : '#ef4444'); setTimeout(nextQuestion, 500); }; div.appendChild(btn); }); timerFill = document.createElement('div'); timerFill.className = 'quiz-timer-fill'; const timerBar = document.createElement('div'); timerBar.className = 'quiz-timer'; timerBar.appendChild(timerFill); div.appendChild(timerBar); quizArea.appendChild(div); }
+        function startTimer() { let time = 10; timerFill.style.width = '100%'; quizTimer = setInterval(() => { time -= 0.1; timerFill.style.width = (time * 10) + '%'; if (time <= 0) { stopTimer(); nextQuestion(); } }, 100); }
+        function stopTimer() { clearInterval(quizTimer); }
+
+        // PROGRESS & CHARTS
+        const progressFill = document.getElementById("progressFill");
+        const recommendations = document.getElementById("recommendations");
+        let progress = 0; let mastery = []; let topics = []; let study = [];
+
+        function simulateProgress() {
+            progress = Math.min(progress + Math.floor(Math.random() * 25) + 10, 100);
+            progressFill.style.width = progress + '%';
+            updateCharts(); updateRecommendations();
+        }
+
+        function updateCharts() {
+            const line = document.getElementById("lineChart"); const ctx1 = line.getContext("2d"); ctx1.clearRect(0, 0, line.width, line.height);
+            mastery.push(progress); ctx1.beginPath(); ctx1.strokeStyle = "#38bdf8"; ctx1.lineWidth = 3;
+            for (let i = 0; i < mastery.length; i++) { const x = i * (line.width / mastery.length), y = line.height - (mastery[i] / 100) * line.height; if (i === 0) { ctx1.moveTo(x, y); } else { ctx1.lineTo(x, y); } } ctx1.stroke();
+
+            const bar = document.getElementById("barChart"); const ctx2 = bar.getContext("2d"); ctx2.clearRect(0, 0, bar.width, bar.height); topics = [Math.random() * 100, Math.random() * 100, Math.random() * 100]; const barWidth = 40;
+            topics.forEach((val, i) => { ctx2.fillStyle = "#38bdf8"; ctx2.fillRect(i * (barWidth + 20) + 20, bar.height - (val / 100) * bar.height, barWidth, (val / 100) * bar.height); });
+
+            const pie = document.getElementById("pieChart"); const ctx3 = pie.getContext("2d"); ctx3.clearRect(0, 0, pie.width, pie.height); study = [Math.random() * 50, Math.random() * 30, Math.random() * 20]; let start = 0; study.forEach((val, i) => { ctx3.fillStyle = i == 0 ? "#38bdf8" : i == 1 ? "#0ea5e9" : "#22c55e"; ctx3.beginPath(); ctx3.moveTo(pie.width / 2, pie.height / 2); ctx3.arc(pie.width / 2, pie.height / 2, 100, start, start + (val / 100) * 2 * Math.PI); ctx3.fill(); start += (val / 100) * 2 * Math.PI; });
+        }
+
+        function updateRecommendations() { recommendations.innerHTML = ''; if (progress < 50) { recommendations.innerHTML += "<li>Focus on fundamentals.</li><li>Review uploaded materials.</li>"; } else if (progress < 80) { recommendations.innerHTML += "<li>Try intermediate quizzes.</li><li>Engage in problem-solving.</li>"; } else { recommendations.innerHTML += "<li>Advanced study recommended.</li><li>Practice with mock exams.</li>"; } }
+    </script>
+    <script>startQuiz();</script>
+</body>
+
+</html>
